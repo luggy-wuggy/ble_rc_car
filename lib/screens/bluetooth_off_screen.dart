@@ -5,24 +5,27 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../utils/snackbar.dart';
 
-class BluetoothOffScreen extends StatelessWidget {
-  const BluetoothOffScreen({Key? key, this.adapterState}) : super(key: key);
+class BluetoothOffOverlay extends StatelessWidget {
+  const BluetoothOffOverlay({Key? key, this.adapterState}) : super(key: key);
 
   final BluetoothAdapterState? adapterState;
 
   Widget buildBluetoothOffIcon(BuildContext context) {
-    return const Icon(
+    return Icon(
       Icons.bluetooth_disabled,
       size: 200.0,
-      color: Colors.white54,
+      color: Colors.blue.shade500,
     );
   }
 
   Widget buildTitle(BuildContext context) {
     String? state = adapterState?.toString().split(".").last;
     return Text(
-      'Bluetooth Adapter is ${state != null ? state : 'not available'}',
-      style: Theme.of(context).primaryTextTheme.titleSmall?.copyWith(color: Colors.white),
+      'Bluetooth Adapter is ${state != null ? state : 'not available'}\nPlease turn on bluetooth',
+      style: Theme.of(context).primaryTextTheme.titleSmall?.copyWith(
+            color: Colors.blue.shade500,
+          ),
+      textAlign: TextAlign.center,
     );
   }
 
@@ -48,9 +51,9 @@ class BluetoothOffScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
       key: Snackbar.snackBarKeyA,
-      child: Scaffold(
-        backgroundColor: Colors.lightBlue,
-        body: Center(
+      child: Container(
+        color: Colors.blue.shade100.withAlpha(220),
+        child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
